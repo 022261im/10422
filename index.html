@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>임서연 과학 카드뉴스</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>로봇팔의 자유도와 관절</h1>
+            <p>10422 임서연</p>
+        </header>
+
+        <!-- 검색 및 필터 섹션 -->
+        <div class="search-section">
+            <input 
+                type="text" 
+                id="searchInput" 
+                class="search-box" 
+                placeholder="카드를 검색해보세요..."
+            >
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">모두</button>
+                <button class="filter-btn" data-filter="concept">개념</button>
+                <button class="filter-btn" data-filter="technology">기술</button>
+                <button class="filter-btn" data-filter="application">활용</button>
+                <button class="filter-btn" data-filter="info">정보</button>
+            </div>
+        </div>
+
+        <main class="cards-grid">
+            <!-- 카드 1: 자유도(DOF)란? -->
+            <a href="page1.html" class="card-link" data-category="concept" data-title="자유도">
+                <div class="card">
+                    <div class="card-front">
+                        <img class="card-image" src="" alt="자유도(DOF)란?">
+                        <h3>자유도(DOF)란?</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 카드 2: 관절의 종류 -->
+            <a href="page2.html" class="card-link" data-category="concept" data-title="관절">
+                <div class="card">
+                    <div class="card-front">
+                        <img class="card-image" src="" alt="관절의 종류">
+                        <h3>관절의 종류</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 카드 3: 작동범위(Workspace)-->
+            <a href="page3.html" class="card-link" data-category="technology" data-title="작동범위">
+                <div class="card">
+                    <div class="card-front">
+                        <img class="card-image" src="" alt="작동범위(Workspace)">
+                        <h3>작동범위(Workspace)</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 카드 4: 역운동학(IK)-->
+            <a href="page4.html" class="card-link" data-category="technology" data-title="역운동학">
+                <div class="card">
+                    <div class="card-front">
+                        <img class="card-image" src="" alt="역운동학(IK)">
+                        <h3>역운동학(IK)</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 카드 5: 응용분야-->
+            <a href="page5.html" class="card-link" data-category="application" data-title="응용분야">
+                <div class="card">
+                    <div class="card-front">
+                        <img class="card-image" src="" alt="응용분야">
+                        <h3>응용분야</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 카드 6: 제작자 Info -->
+            <a href="info.html" class="card-link" data-category="info" data-title="제작자">
+                <div class="card">
+                    <div class="card-front">
+                        <img class="card-image" src="" alt="제작자 Info">
+                        <h3>제작자 Info</h3>
+                    </div>
+                </div>
+            </a>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
