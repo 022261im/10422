@@ -1,0 +1,94 @@
+/* 상세 페이지 스타일 */
+.detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    background: white;
+    color: #2563eb;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background: #f0f0f0;
+    transform: translateX(-5px);
+}
+
+.detail-content {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.detail-content h1 {
+    color: #2563eb;
+    margin-bottom: 30px;
+    font-size: 6rem;
+    text-align: center;
+    text-shadow: none;
+}
+
+/* 콘텐츠 박스 */
+.content-box {
+    background: #f8f9fa;
+    border: 2px solid #2563eb;
+    border-radius: 10px;
+    padding: 30px;
+    line-height: 1.8;
+}
+
+.detail-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-box p {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+}
+
+.content-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .detail-container {
+        padding: 20px 10px;
+    }
+
+    .detail-content {
+        padding: 20px;
+    }
+
+    .detail-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .content-box {
+        padding: 20px;
+    }
+
+    .content-box p {
+        font-size: 0.95rem;
+    }
+}
