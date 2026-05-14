@@ -9,125 +9,121 @@
 
 <body>
 
-<div class="container">
+<!-- HEADER -->
+<header>
+    <h1>Archiving</h1>
+    <p>10422 임서연</p>
+</header>
 
-    <!-- HEADER -->
-    <header>
-        <h1>Archiving</h1>
-        <p>10422 임서연</p>
-    </header>
+<!-- HERO (BLUE MAIN HOME STYLE) -->
+<section class="hero">
 
-    <!-- HERO (SAND STUDIO INSPIRED, BUT CLEAN) -->
-    <section class="hero">
+    <div class="hero-content">
 
-        <div class="hero-overlay"></div>
+        <span class="hero-tag">Robotics Engineering</span>
 
-        <div class="hero-content">
+        <h1>
+            Robotics Card News<br>
+            Archive
+        </h1>
 
-            <h1>
-                Robotics<br>
-                Card News Archive
-            </h1>
+        <p>
+            자유도, 역운동학, Workspace 등<br>
+            로봇공학 핵심 개념을 카드뉴스로 정리했습니다.
+        </p>
 
-            <p>
-                자유도, 역운동학, Workspace 등<br>
-                로봇공학 핵심 개념을 카드뉴스로 정리했습니다.
-            </p>
-
-            <a href="#cards" class="hero-button">
-                카드뉴스 보기
-            </a>
-
-        </div>
-
-    </section>
-
-    <!-- SEARCH + FILTER -->
-    <div class="search-section" id="search">
-
-        <input
-            type="text"
-            id="searchInput"
-            class="search-box"
-            placeholder="카드를 검색해보세요..."
-        >
-
-        <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">모두</button>
-            <button class="filter-btn" data-filter="concept">개념</button>
-            <button class="filter-btn" data-filter="technology">기술</button>
-            <button class="filter-btn" data-filter="application">활용</button>
-            <button class="filter-btn" data-filter="info">정보</button>
-        </div>
+        <a href="#cards" class="hero-button">
+            내용 보기
+        </a>
 
     </div>
 
-    <!-- CARDS -->
-    <main class="cards-grid" id="cards">
+</section>
 
-        <!-- 카드 1 -->
-        <a href="page1.html" class="card-link" data-category="concept">
-            <div class="card">
-                <div class="card-front">
-                    <img class="card-image" src="" alt="">
-                    <h3>자유도(DOF)란?</h3>
-                </div>
-            </div>
-        </a>
+<!-- SEARCH + FILTER -->
+<div class="search-section" id="search">
 
-        <!-- 카드 2 -->
-        <a href="page2.html" class="card-link" data-category="concept">
-            <div class="card">
-                <div class="card-front">
-                    <img class="card-image" src="" alt="">
-                    <h3>관절의 종류</h3>
-                </div>
-            </div>
-        </a>
+    <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="카드를 검색해보세요..."
+    >
 
-        <!-- 카드 3 -->
-        <a href="page3.html" class="card-link" data-category="technology">
-            <div class="card">
-                <div class="card-front">
-                    <img class="card-image" src="" alt="">
-                    <h3>작동범위(Workspace)</h3>
-                </div>
-            </div>
-        </a>
-
-        <!-- 카드 4 -->
-        <a href="page4.html" class="card-link" data-category="technology">
-            <div class="card">
-                <div class="card-front">
-                    <img class="card-image" src="" alt="">
-                    <h3>역운동학(IK)</h3>
-                </div>
-            </div>
-        </a>
-
-        <!-- 카드 5 -->
-        <a href="page5.html" class="card-link" data-category="application">
-            <div class="card">
-                <div class="card-front">
-                    <img class="card-image" src="" alt="">
-                    <h3>응용분야</h3>
-                </div>
-            </div>
-        </a>
-
-        <!-- 카드 6 -->
-        <a href="info.html" class="card-link" data-category="info">
-            <div class="card">
-                <div class="card-front">
-                    <img class="card-image" src="" alt="">
-                    <h3>제작자 Info</h3>
-                </div>
-            </div>
-        </a>
-
-    </main>
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">모두</button>
+        <button class="filter-btn" data-filter="concept">개념</button>
+        <button class="filter-btn" data-filter="technology">기술</button>
+        <button class="filter-btn" data-filter="application">활용</button>
+        <button class="filter-btn" data-filter="info">정보</button>
+    </div>
 
 </div>
+
+<!-- CARDS -->
+<main class="cards-grid" id="cards">
+
+    <!-- 카드 1 -->
+    <a href="page1.html" class="card-link" data-category="concept">
+        <div class="card">
+            <div class="card-front">
+                <img class="card-image" src="" alt="">
+                <h3>자유도(DOF)란?</h3>
+            </div>
+        </div>
+    </a>
+
+    <!-- 카드 2 -->
+    <a href="page2.html" class="card-link" data-category="concept">
+        <div class="card">
+            <div class="card-front">
+                <img class="card-image" src="" alt="">
+                <h3>관절의 종류</h3>
+            </div>
+        </div>
+    </a>
+
+    <!-- 카드 3 -->
+    <a href="page3.html" class="card-link" data-category="technology">
+        <div class="card">
+            <div class="card-front">
+                <img class="card-image" src="" alt="">
+                <h3>작동범위(Workspace)</h3>
+            </div>
+        </div>
+    </a>
+
+    <!-- 카드 4 -->
+    <a href="page4.html" class="card-link" data-category="technology">
+        <div class="card">
+            <div class="card-front">
+                <img class="card-image" src="" alt="">
+                <h3>역운동학(IK)</h3>
+            </div>
+        </div>
+    </a>
+
+    <!-- 카드 5 -->
+    <a href="page5.html" class="card-link" data-category="application">
+        <div class="card">
+            <div class="card-front">
+                <img class="card-image" src="" alt="">
+                <h3>응용분야</h3>
+            </div>
+        </div>
+    </a>
+
+    <!-- 카드 6 -->
+    <a href="info.html" class="card-link" data-category="info">
+        <div class="card">
+            <div class="card-front">
+                <img class="card-image" src="" alt="">
+                <h3>제작자 Info</h3>
+            </div>
+        </div>
+    </a>
+
+</main>
 
 <script src="js/script.js"></script>
 </body>
