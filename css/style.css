@@ -5,11 +5,10 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f8f9fa;
-    min-height: 100vh;
-    padding: 0;
-    border-top: 8px solid #2563eb;
+    margin: 0;
+    background: #f4f7fb;
+    font-family: 'Pretendard', sans-serif;
+    color: #222;
 }
 
 .container {
@@ -19,22 +18,19 @@ body {
 }
 
 header {
+    padding: 60px 20px 30px;
     text-align: center;
-    color: #2563eb;
-    margin-bottom: 50px;
-    padding: 40px 20px;
 }
 
 header h1 {
-    font-size: 4rem;
+    font-size: 56px;
     margin-bottom: 10px;
-    text-shadow: none;
-    font-family: 'Trebuchet MS', sans-serif;
+    color: #0d47a1;
 }
 
 header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
+    color: #666;
+    font-size: 18px;
 }
 
 /* 검색 및 필터 섹션 */
@@ -187,4 +183,34 @@ header p {
     .card {
         height: 300px;
     }
+}
+.hero {
+    width: 90%;
+    max-width: 1200px;
+
+    height: 300px;
+
+    margin: 0 auto 60px;
+
+    border-radius: 30px;
+
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 60px;
+
+    box-sizing: border-box;
+
+    color: white;
+}
+
+.hero-content h2 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    font-size: 20px;
 }
