@@ -3,122 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>임서연 과학 카드뉴스</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <title>ScienceArchive</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap" rel="stylesheet">
 
+    <style>
+        /* [1. 전체 기본 설정] */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333333;
+            scroll-behavior: smooth;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+        }
+
+        /* [2. 상단 진행률 바 (Scroll Progress Bar)] */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px; /* 바 두께 */
+            background: transparent;
+            z-index: 9999; /* 최상단 고정 */
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: #3b82f6; /* 파란색 계열 포인트 컬러 */
+            width: 0%; /* 초기 너비 */
+            transition: width 0.1s ease;
+        }
+
+        /* [3. Hero 섹션] */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            color: #1e3a8a; 
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 타이핑 효과가 적용될 부제목 스타일 */
+        .hero h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #64748b; 
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            min-height: 1.8rem; /* 타이핑 시 높이 고정 */
+        }
+
+        /* 타이핑 커서 깜빡임 효과 */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: #3b82f6;
+            margin-left: 5px;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero .name {
+            font-size: 0.75rem; 
+            font-weight: 400;
+            color: #94a3b8; 
+            margin-top: 5rem;
+        }
+
+        /* [4. 카드 섹션] */
+        .content-section {
+            padding: 100px 10%;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 2.5rem;
+            flex-wrap: wrap; 
+        }
+
+        .card {
+            background-color: #ffffff;
+            flex: 1; 
+            min-width: 280px; 
+            min-height: 450px; /* 세로로 더 길게 설정 */
+            padding: 5rem 2.5rem;
+            border-radius: 16px; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-top: 5px solid #3b82f6; 
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .card:hover {
+            transform: translateY(-20px); /* 호버 시 위로 더 많이 상승 */
+            /* 더 깊고 넓은 그림자 효과 (강조) */
+            box-shadow: 0 40px 70px -15px rgba(30, 58, 138, 0.25); 
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #1e3a8a; 
+            margin-bottom: 2rem;
+            text-transform: capitalize; 
+        }
+
+        .card p {
+            color: #64748b;
+            font-weight: 300;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* 스크롤 시 카드가 나타나게 하는 클래스 */
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* [5. 이메일 푸터] */
+        .email-footer {
+            margin-top: 6rem;
+            text-align: right;
+            font-size: 0.65rem; /* 이름보다 작게 */
+            color: #94a3b8; 
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+    </style>
+</head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-
-    <div class="hero-content">
-
-        <span class="hero-tag">Robotics Engineering</span>
-
-        <h1>
-            Robotics Card News<br>
-            Archive
-        </h1>
-
-        <p>
-            제어센서, 로봇의 움직임, BCI 등 <br>
-            공학과 관련된 자료들을 카드로 정리했습니다.
-        </p>
-
-        <a href="#cards" class="hero-button">
-            내용 보기
-        </a>
-
+    <div id="progress-container">
+        <div id="progress-bar"></div>
     </div>
 
-</section>
+    <header class="hero">
+        <h1>ScienceArchive</h1>
+        <h2 id="typing-text"></h2>
+        <span class="name">임서연</span>
+    </header>
 
-<!-- SEARCH + FILTER -->
-<div class="search-section" id="search">
+    <section class="content-section">
+        <div class="card-container">
+            <div class="card">
+                <h3>branch</h3>
+                <p>교과 심화 탐구 내용</p>
+            </div>
 
-    <input
-        type="text"
-        id="searchInput"
-        class="search-box"
-        placeholder="카드를 검색해보세요..."
-    >
+            <div class="card">
+                <h3>brainstorming</h3>
+                <p>잡생각들의 모음</p>
+            </div>
 
-    <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">모두</button>
-        <button class="filter-btn" data-filter="concept">개념</button>
-        <button class="filter-btn" data-filter="technology">기술</button>
-        <button class="filter-btn" data-filter="application">활용</button>
-        <button class="filter-btn" data-filter="info">정보</button>
-    </div>
-
-</div>
-
-<!-- CARDS -->
-<main class="cards-grid" id="cards">
-
-    <!-- 카드 1 -->
-    <a href="page1.html" class="card-link" data-category="concept">
-        <div class="card">
-            <div class="card-front">
-                <img class="card-image" src="여기에 이미지 파일명 넣으세요" alt="기계 공학">
-                <h3>기계 공학</h3>
+            <div class="card">
+                <h3>about me</h3>
+                <p>나의 이야기</p>
             </div>
         </div>
-    </a>
 
-    <!-- 카드 2 -->
-    <a href="page2.html" class="card-link" data-category="concept">
-        <div class="card">
-            <div class="card-front">
-                <img class="card-image" src="여기에 이미지 파일명 넣으세요" alt="로봇공학">
-                <h3>로봇공학</h3>
-            </div>
+        <div class="email-footer">
+            ✉️022261@hafs.hs.kr
         </div>
-    </a>
+    </section>
 
-    <!-- 카드 3 -->
-    <a href="page3.html" class="card-link" data-category="technology">
-        <div class="card">
-            <div class="card-front">
-                <img class="card-image" src="여기에 이미지 파일명 넣으세요" alt="의공학">
-                <h3>의공학(Workspace)</h3>
-            </div>
-        </div>
-    </a>
+    <script>
+        /* 1. 상단 진행률 바 기능 */
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
 
-    <!-- 카드 4 -->
-    <a href="page4.html" class="card-link" data-category="technology">
-        <div class="card">
-            <div class="card-front">
-                <img class="card-image" src="여기에 이미지 파일명 넣으세요" alt="신소재공학">
-                <h3>신소재공학</h3>
-            </div>
-        </div>
-    </a>
+        /* 2. Hero 섹션 타이핑 효과 기능 */
+        const typingTarget = document.getElementById("typing-text");
+        const message = "memory of hafs";
+        let index = 0;
 
-    <!-- 카드 5 -->
-    <a href="page5.html" class="card-link" data-category="application">
-        <div class="card">
-            <div class="card-front">
-                <img class="card-image" src="여기에 이미지 파일명 넣으세요" alt="Personal Interst">
-                <h3>Personal Interst</h3>
-            </div>
-        </div>
-    </a>
+        function type() {
+            if (index < message.length) {
+                // 한 글자씩 추가
+                typingTarget.innerHTML = message.substring(0, index + 1) + '<span class="cursor"></span>';
+                index++;
+                setTimeout(type, 120); // 타이핑 속도 조정 (120ms)
+            } else {
+                // 타이핑 완료 후 커서만 남김
+                typingTarget.innerHTML = message + '<span class="cursor"></span>';
+            }
+        }
 
-    <!-- 카드 6 -->
-    <a href="info.html" class="card-link" data-category="info">
-        <div class="card">
-            <div class="card-front">
-                <img class="card-image" src="여기에 이미지 파일명 넣으세요" alt="제작자 Info">
-                <h3>제작자 Info</h3>
-            </div>
-        </div>
-    </a>
+        // 페이지 로드 후 0.5초 뒤에 타이핑 시작
+        window.onload = () => {
+            setTimeout(type, 500);
+        };
 
-</main>
+        /* 3. 카드 스크롤 애니메이션 (Intersection Observer) */
+        const cards = document.querySelectorAll('.card');
+        const observerOptions = {
+            threshold: 0.1
+        };
 
-<script src="js/script.js"></script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach((card, i) => {
+            card.style.transitionDelay = `${i * 0.2}s`; // 카드별로 순차적 등장
+            observer.observe(card);
+        });
+    </script>
+
 </body>
 </html>
