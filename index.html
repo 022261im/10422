@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> #,설명창 기능 엡데이트 하기
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -121,8 +121,8 @@
             </div>
 
             <div class="card clickable-card" onclick="openGame()">
-                <h3>about me</h3>
-                <p>HAFS에서의 학업적 성장 과정과 탐구자로서의 비전을 소개합니다. <br><br><b>(Click to Play 🎮)</b></p>
+                <h3>Lets Play Game</h3>
+                <p>HAFS에서 살아남기 <br><br><b>(Click to Play 🎮)</b></p>
             </div>
         </div>
 
@@ -131,8 +131,36 @@
 
     <div class="game-modal" id="modalContainer">
         
-        <div class="modal-box" id="gameBox">
+    <div class="modal-box" id="gameBox">
             <span class="close-game" onclick="closeModal()">&times;</span>
+            <div class="modal-title">AI 모션인식: 지식 탐구 시뮬레이션</div>
+            <div id="game-score-board">
+                <div>탐구 점수: <b id="scoreVal" style="color:#3b82f6;">0</b></div>
+                <div>멘탈: <b id="lifeVal">❤️❤️❤️</b></div>
+            </div>
+            <div id="game-canvas-container">
+                <video id="webcam-feed" autoplay playsinline></video>
+                
+                <div class="game-overlay" id="instructionOverlay" style="z-index: 12; padding: 30px;">
+                    <h2 style="color: #1e3a8a; margin-bottom: 15px;">🎮 게임 설명서</h2>
+                    
+                    <p style="font-size: 0.95rem; color: #334155; line-height: 1.6; margin-bottom: 25px; white-space: pre-wrap;">
+1. 카메라 권한을 허용해주세요.
+2. 머리를 움직이면 이에 맞춰서 판이 움직입니다.
+3. 판이 🧬, ⚛️, 💡를 만나면 점수가 올라가고, 🐛, ☢️를 만나면 목숨이 줄어듭니다.
+                    </p>
+                    
+                    <button class="start-btn" onclick="closeInstruction()" style="background-color: #10b981;">확인 완료!</button>
+                </div>
+
+                <div class="game-overlay" id="gameOverlay">
+                    <h3 id="overlayTitle" style="color:#1e3a8a; font-size:1.3rem;">카메라 앞의 머리를 움직여보세요!</h3>
+                    <p id="overlaySub" style="font-size:0.85rem; color:#64748b; margin-top:8px; line-height:1.5;">🧬, ⚛️, 💡은 모으고, 🐛, ☢️는 피하세요.</p>
+                    <button class="start-btn" id="startBtn" onclick="startGame()">카메라 및 AI 로딩 중...</button>
+                </div>
+                <div id="basket">임서연</div>
+            </div>
+        </div>            <span class="close-game" onclick="closeModal()">&times;</span>
             <div class="modal-title">AI 모션인식: 지식 탐구 시뮬레이션</div>
             <div id="game-score-board">
                 <div>탐구 점수: <b id="scoreVal" style="color:#3b82f6;">0</b></div>
