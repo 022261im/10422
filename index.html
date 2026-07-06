@@ -12,130 +12,90 @@
 
     <style>
         /* [1. 전체 기본 설정] */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        body {
-            background-color: #f8f9fa;
-            color: #333333;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans KR', sans-serif; }
+        body { background-color: #f8f9fa; color: #333333; scroll-behavior: smooth; overflow-x: hidden; }
 
         /* [2. 상단 진행률 바] */
-        #progress-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: transparent; z-index: 9999;
-        }
-
-        #progress-bar {
-            height: 100%; background: #3b82f6; width: 0%;
-            transition: width 0.1s ease;
-        }
+        #progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: transparent; z-index: 9999; }
+        #progress-bar { height: 100%; background: #3b82f6; width: 0%; transition: width 0.1s ease; }
 
         /* [3. Hero 섹션] */
-        .hero {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            background-color: #ffffff; text-align: center;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
-        }
-
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #ffffff; text-align: center; background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%); }
         .hero h1 { font-size: 4rem; font-weight: 300; color: #1e3a8a; letter-spacing: 2px; margin-bottom: 0.5rem; }
         .hero h2 { font-size: 1.5rem; font-weight: 300; color: #64748b; letter-spacing: 2px; margin-bottom: 3rem; min-height: 1.8rem; }
         .cursor { display: inline-block; width: 2px; background-color: #3b82f6; margin-left: 5px; animation: blink 0.8s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        
         .hero .name { font-size: 0.75rem; font-weight: 400; color: #94a3b8; margin-top: 5rem; }
 
         /* [4. 카드 섹션] */
-        .content-section {
-            padding: 100px 10%; min-height: 100vh;
-            background-color: #f8f9fa; display: flex; flex-direction: column; justify-content: center;
-        }
-
+        .content-section { padding: 100px 10%; min-height: 100vh; background-color: #f8f9fa; display: flex; flex-direction: column; justify-content: center; }
         .card-container { display: flex; justify-content: space-between; gap: 2.5rem; flex-wrap: wrap; }
-
-        .card {
-            background-color: #ffffff; flex: 1; min-width: 280px; min-height: 450px; 
-            padding: 5rem 2.5rem; border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-top: 5px solid #3b82f6; display: flex; flex-direction: column;
-            opacity: 0; transform: translateY(40px);
-        }
-
+        .card { background-color: #ffffff; flex: 1; min-width: 280px; min-height: 450px; padding: 5rem 2.5rem; border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-top: 5px solid #3b82f6; display: flex; flex-direction: column; opacity: 0; transform: translateY(40px); }
         .card:hover { transform: translateY(-20px); box-shadow: 0 40px 70px -15px rgba(30, 58, 138, 0.25); }
         .card h3 { font-size: 1.8rem; font-weight: 400; color: #1e3a8a; margin-bottom: 2rem; text-transform: capitalize; }
         .card p { color: #64748b; font-weight: 300; line-height: 1.8; font-size: 1.05rem; }
         .card.visible { opacity: 1; transform: translateY(0); }
 
-        /* about me 카드 호버시 클릭 가능하다는 마우스 커서 표시 */
-        .clickable-card { cursor: pointer; border-top: 5px solid #10b981; /* 클릭형 카드는 초록색 포인트 */ }
+        /* clickable 카드는 초록색 포인트 */
+        .clickable-card { cursor: pointer; border-top: 5px solid #10b981; }
 
         /* [5. 이메일 푸터] */
         .email-footer { margin-top: 6rem; text-align: right; font-size: 0.65rem; color: #94a3b8; font-weight: 400; letter-spacing: 1px; }
 
-        /* 🎮 [추가] 미니게임 모달 (AI 모션 인식 게임) */
-        .game-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px);
-            z-index: 10000; justify-content: center; align-items: center;
-        }
-
-        .game-box {
-            background-color: #ffffff; width: 500px; height: 650px; border-radius: 20px;
-            padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative;
-            display: flex; flex-direction: column; align-items: center;
-        }
-
-        .close-game { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #94a3b8; }
-        .game-title { color: #1e3a8a; font-size: 1.3rem; font-weight: 500; margin-bottom: 5px; }
-
-        .game-score-board {
-            width: 100%; display: flex; justify-content: space-between; padding: 5px 10px;
-            font-size: 0.9rem; color: #475569; border-bottom: 1px solid #e2e8f0; margin-bottom: 10px;
-        }
-
-        #game-canvas-container {
-            width: 100%; height: 450px; background: linear-gradient(to bottom, #0f172a, #1e293b); /* 우주/실험실 느낌의 배경 */
-            border-radius: 12px; position: relative; overflow: hidden; border: 1px solid #e2e8f0;
-        }
-
-        /* 게임 내 우측 상단에 표시될 작은 웹캠 화면 */
-        #webcam-feed {
-            position: absolute; top: 10px; right: 10px; width: 80px; height: 80px;
-            border-radius: 50%; object-fit: cover; border: 2px solid #3b82f6;
-            transform: scaleX(-1); /* 거울 모드 좌우 반전 */ z-index: 5;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-        }
-
-        #basket {
-            position: absolute; bottom: 15px; left: 50%; width: 90px; height: 30px;
-            background-color: #3b82f6; border-radius: 20px; transform: translateX(-50%);
-            display: flex; justify-content: center; align-items: center;
-            color: #ffffff; font-size: 0.8rem; font-weight: 500;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6); transition: left 0.1s ease-out; /* 부드러운 이동 */
-        }
-
-        .falling-item { position: absolute; font-size: 1.8rem; transform: translateX(-50%); user-select: none; }
-
-        .game-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(255, 255, 255, 0.95); display: flex; flex-direction: column;
-            justify-content: center; align-items: center; border-radius: 12px; z-index: 10; text-align: center;
-        }
-
-        .start-btn {
-            margin-top: 15px; padding: 12px 25px; background-color: #1e3a8a; color: white;
-            border: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 500;
-        }
+        /* 🎮 [about me 게임] 및 🌳 [branch 탐색기] 전용 모달 (통합용) */
+        .game-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 10000; justify-content: center; align-items: center; }
         
+        /* 통합용 박스 디자인 */
+        .modal-box { background-color: #ffffff; width: 550px; height: 700px; border-radius: 20px; padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative; display: none; flex-direction: column; align-items: center; }
+        .close-game { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #94a3b8; }
+        .modal-title { color: #1e3a8a; font-size: 1.4rem; font-weight: 500; margin-bottom: 15px; text-align: center; }
+
+        /* 🎮 게임 전용 CSS (about me) */
+        #game-score-board { width: 100%; display: flex; justify-content: space-between; padding: 5px 10px; font-size: 0.9rem; color: #475569; border-bottom: 1px solid #e2e8f0; margin-bottom: 10px; }
+        #game-canvas-container { width: 100%; height: 480px; background: linear-gradient(to bottom, #0f172a, #1e293b); border-radius: 12px; position: relative; overflow: hidden; border: 1px solid #e2e8f0; }
+        #webcam-feed { position: absolute; top: 10px; right: 10px; width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #3b82f6; transform: scaleX(-1); z-index: 5; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+        #basket { position: absolute; bottom: 15px; left: 50%; width: 90px; height: 30px; background-color: #3b82f6; border-radius: 20px; transform: translateX(-50%); display: flex; justify-content: center; align-items: center; color: #ffffff; font-size: 0.8rem; font-weight: 500; box-shadow: 0 0 15px rgba(59, 130, 246, 0.6); transition: left 0.1s ease-out; }
+        .falling-item { position: absolute; font-size: 1.8rem; transform: translateX(-50%); user-select: none; }
+        .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 12px; z-index: 10; text-align: center; }
+        .start-btn { margin-top: 15px; padding: 12px 25px; background-color: #1e3a8a; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 500; }
         .start-btn:disabled { background-color: #94a3b8; cursor: not-allowed; }
+
+        /* 🌳 Branch 탐색기 전용 CSS (branch) */
+        #branch-canvas {
+            width: 100%; height: 500px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%); /* 흰색/밝은하늘 그라데이션 */
+            border-radius: 12px; position: relative; overflow: hidden;
+            border: 1px solid #e2e8f0; display: flex; justify-content: center; align-items: center;
+        }
+
+        /* 나뭇가지형 노드 스타일 */
+        .tree-node {
+            position: absolute; width: 100px; height: 100px;
+            border-radius: 50%; color: #ffffff; display: flex;
+            justify-content: center; align-items: center; font-size: 0.9rem;
+            font-weight: 400; cursor: pointer; text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0); /* 처음엔 안보임 */
+            z-index: 10; padding: 15px; word-break: keep-all;
+        }
+
+        .tree-node:hover { transform: scale(1.1) !important; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+
+        /* 레벨별 색상 (파란색/초록색 계열) */
+        .level-1 { background-color: #1e3a8a; } /* 큰 테마 */
+        .level-2 { background-color: #3b82f6; font-size: 0.8rem; } /* 중간 주제 */
+        .level-3 { background-color: #10b981; font-size: 0.7rem; } /* 세부 내역 */
+
+        /* 뒤로가기 버튼 */
+        #branch-back-btn {
+            position: absolute; bottom: 15px; left: 15px; padding: 8px 15px;
+            background-color: transparent; border: 1px solid #94a3b8; color: #94a3b8;
+            border-radius: 20px; cursor: pointer; font-size: 0.7rem; display: none;
+            transition: all 0.3s;
+        }
+        #branch-back-btn:hover { background-color: #f1f5f9; color: #475569; }
+
     </style>
 </head>
 <body>
@@ -150,9 +110,9 @@
 
     <section class="content-section">
         <div class="card-container">
-            <div class="card">
+            <div class="card clickable-card" onclick="openBranchExplorer()">
                 <h3>branch</h3>
-                <p>교과 경계를 넘어 깊이 파고든 주제별 심화 탐구의 흐름을 기록합니다.</p>
+                <p>교과 경계를 넘어 깊이 파고든 주제별 심화 탐구의 흐름을 나뭇가지처럼 탐색합니다. <br><br><b>(Click to Explore 🌳)</b></p>
             </div>
 
             <div class="card">
@@ -169,30 +129,34 @@
         <div class="email-footer">022261@hafs.hs.kr</div>
     </section>
 
-    <div class="game-modal" id="gameModal">
-        <div class="game-box">
-            <span class="close-game" onclick="closeGame()">&times;</span>
-            <div class="game-title">AI 모션인식: 지식 탐구 시뮬레이션</div>
-            
-            <div class="game-score-board">
+    <div class="game-modal" id="modalContainer">
+        
+        <div class="modal-box" id="gameBox">
+            <span class="close-game" onclick="closeModal()">&times;</span>
+            <div class="modal-title">AI 모션인식: 지식 탐구 시뮬레이션</div>
+            <div id="game-score-board">
                 <div>탐구 점수: <b id="scoreVal" style="color:#3b82f6;">0</b></div>
                 <div>멘탈: <b id="lifeVal">❤️❤️❤️</b></div>
             </div>
-
             <div id="game-canvas-container">
                 <video id="webcam-feed" autoplay playsinline></video>
-                
                 <div class="game-overlay" id="gameOverlay">
                     <h3 id="overlayTitle" style="color:#1e3a8a; font-size:1.3rem;">카메라 앞의 머리를 움직여보세요!</h3>
-                    <p id="overlaySub" style="font-size:0.85rem; color:#64748b; margin-top:8px; line-height:1.5;">
-                        안정적인 입자와 지식(🧬, ⚛️, 💡)을 모으고<br>오류와 방사능(🐛, ☢️)을 피하세요.
-                    </p>
+                    <p id="overlaySub" style="font-size:0.85rem; color:#64748b; margin-top:8px; line-height:1.5;">🧬, ⚛️, 💡은 모으고, 🐛, ☢️는 피하세요.</p>
                     <button class="start-btn" id="startBtn" onclick="startGame()">카메라 및 AI 로딩 중...</button>
                 </div>
-                
                 <div id="basket">임서연</div>
             </div>
         </div>
+
+        <div class="modal-box" id="branchBox">
+            <span class="close-game" onclick="closeModal()">&times;</span>
+            <div class="modal-title">HAFS 탐구 나무 탐색하기</div>
+            <div id="branch-canvas">
+                <button id="branch-back-btn" onclick="goBackBranch()">← 뒤로가기</button>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -222,108 +186,210 @@
         }, { threshold: 0.1 });
         cards.forEach((card, i) => { card.style.transitionDelay = `${i * 0.2}s`; observer.observe(card); });
 
-        /* 🎮 [AI 머리 인식 및 미니 게임 엔진] */
-        const modal = document.getElementById('gameModal');
-        const canvas = document.getElementById('game-canvas-container');
-        const basket = document.getElementById('basket');
-        const overlay = document.getElementById('gameOverlay');
+        /* 🌳 1. [Branch Explorer] 통합 스크립트 */
+        const modalContainer = document.getElementById('modalContainer');
+        const branchBox = document.getElementById('branchBox');
+        const gameBox = document.getElementById('gameBox');
+        const branchCanvas = document.getElementById('branch-canvas');
+        const branchBackBtn = document.getElementById('branch-back-btn');
+
+        // 나뭇가지 구조 데이터 (서연님의 실제 탐구 내용에 맞게 수정하세요!)
+        const branchData = {
+            id: 'root',
+            label: '탐구 아카이브',
+            children: [
+                { id: 'biology', label: '생명과학', type: 'theme', children: [
+                    { id: 'central', label: 'DNA 전사', type: 'subject', children: [
+                        { id: 'central-1', label: '실험 설계', type: 'detail' },
+                        { id: 'central-2', label: '데이터 분석', type: 'detail' }
+                    ]},
+                    { id: 'mutation', label: '돌연변이', type: 'subject', children: [
+                        { id: 'mutation-1', label: '영향 고찰 논문', type: 'detail' }
+                    ]}
+                ]},
+                { id: 'physics', label: '융합물리', type: 'theme', children: [
+                    { id: 'entropy', label: '엔트로피', type: 'subject', children: [
+                        { id: 'entropy-1', label: '시뮬레이션', type: 'detail' }
+                    ]}
+                ]},
+                { id: 'general', label: '일반탐구', type: 'theme', children: [
+                    { id: 'pbl', label: 'PBL 활동', type: 'subject' }
+                ]}
+            ]
+        };
+
+        let currentBranchLevel = branchData; // 현재 화면에 보이는 데이터 단계
+        let branchHistory = []; // 뒤로가기를 위한 히스토리 저장소
+
+        // 모달 열기/닫기 통합 함수
+        function closeModal() {
+            modalContainer.style.display = 'none';
+            gameBox.style.display = 'none';
+            branchBox.style.display = 'none';
+            stopGameLogic(); // 게임 중이었다면 중지
+        }
+
+        // branch 탐색기 열기
+        function openBranchExplorer() {
+            modalContainer.style.display = 'flex';
+            branchBox.style.display = 'flex';
+            gameBox.style.display = 'none';
+            currentBranchLevel = branchData; // 루트부터 시작
+            branchHistory = [];
+            renderBranchNodes(currentBranchLevel.children);
+            branchBackBtn.style.display = 'none';
+        }
+
+        // 나뭇가지 노드 생성 및 모핑 애니메이션 적용
+        function renderBranchNodes(nodes) {
+            // 기존 노드 소거 (뒤로가기 버튼 제외)
+            Array.from(branchCanvas.querySelectorAll('.tree-node')).forEach(node => node.remove());
+
+            const canvasWidth = branchCanvas.clientWidth;
+            const canvasHeight = branchCanvas.clientHeight;
+            const centerX = canvasWidth / 2;
+            const centerY = canvasHeight / 2;
+            const radius = 150; // 노드들이 퍼질 반지름
+
+            nodes.forEach((node, i) => {
+                const nodeEl = document.createElement('div');
+                nodeEl.className = `tree-node level-${node.type === 'theme' ? '1' : node.type === 'subject' ? '2' : '3'}`;
+                nodeEl.innerText = node.label;
+                
+                // 처음엔 중앙에서 시작
+                nodeEl.style.left = centerX - 50 + 'px';
+                nodeEl.style.top = centerY - 50 + 'px';
+                nodeEl.style.transform = 'scale(0)';
+                
+                // 나중에 나뭇가지처럼 퍼질 위치 계산
+                const angle = (i / nodes.length) * (2 * Math.PI) - (Math.PI / 2);
+                const targetX = centerX + radius * Math.cos(angle);
+                const targetY = centerY + radius * Math.sin(angle);
+
+                // 클릭 시 모핑 애니메이션과 깊이 이동
+                nodeEl.onclick = (e) => {
+                    e.stopPropagation();
+                    if (node.children && node.children.length > 0) {
+                        morphToNode(nodeEl, node);
+                    }
+                };
+
+                branchCanvas.appendChild(nodeEl);
+
+                // 약간의 시간차를 두고 중앙에서 퍼져나가는 애니메이션 실행
+                setTimeout(() => {
+                    nodeEl.style.transform = 'scale(1)';
+                    nodeEl.style.left = targetX - 50 + 'px';
+                    nodeEl.style.top = targetY - 50 + 'px';
+                }, 100 + (i * 100));
+            });
+        }
+
+        // 특정 노드로 화면 전체가 모핑되는 애니메이션
+        function morphToNode(clickedEl, nodeData) {
+            // 클릭된 노드를 중앙으로 이동시키며 화면 전체로 키움
+            const canvasWidth = branchCanvas.clientWidth;
+            const canvasHeight = branchCanvas.clientHeight;
+
+            clickedEl.style.zIndex = '20'; // 맨 위로
+            clickedEl.style.left = (canvasWidth / 2) - 50 + 'px';
+            clickedEl.style.top = (canvasHeight / 2) - 50 + 'px';
+            clickedEl.style.transform = 'scale(1.5)';
+            clickedEl.style.opacity = '0'; // 천천히 투명해지며 사라짐
+
+            // 나머지 노드들은 사라짐
+            Array.from(branchCanvas.querySelectorAll('.tree-node')).forEach(el => {
+                if (el !== clickedEl) {
+                    el.style.transform = 'scale(0)';
+                }
+            });
+
+            // 모핑 애니메이션 후 세부 노드 렌더링
+            setTimeout(() => {
+                branchHistory.push(currentBranchLevel); // 히스토리에 저장
+                currentBranchLevel = nodeData; // 데이터 레벨 업데이트
+                renderBranchNodes(currentBranchLevel.children);
+                branchBackBtn.style.display = 'block'; // 뒤로가기 버튼 활성화
+            }, 600);
+        }
+
+        // branch 탐색기 뒤로가기
+        function goBackBranch() {
+            if (branchHistory.length > 0) {
+                currentBranchLevel = branchHistory.pop();
+                renderBranchNodes(currentBranchLevel.children);
+                if (branchHistory.length === 0) branchBackBtn.style.display = 'none';
+            }
+        }
+
+
+        /* 🎮 2. [about me 게임] 전용 스크립트 (기존 코드 통합) */
+        const webcamFeed = document.getElementById('webcam-feed');
+        const gameOverlay = document.getElementById('gameOverlay');
+        const startBtn = document.getElementById('startBtn');
         const scoreVal = document.getElementById('scoreVal');
         const lifeVal = document.getElementById('lifeVal');
-        const startBtn = document.getElementById('startBtn');
-        const videoElement = document.getElementById('webcam-feed');
+        const basket = document.getElementById('basket');
         
-        let score = 0; let lives = 3; let isPlaying = false;
+        let aiModel = null; let isPlaying = false;
         let gameLoopInterval; let itemSpawnInterval;
         let fallingItems = []; let itemSpeed = 4;
-        let aiModel = null; let isTracking = false;
+        let isWebcamReady = false;
 
-        // 게임 열기: 카메라와 AI 모델을 비동기로 세팅
         async function openGame() {
-            modal.style.display = 'flex';
-            resetGameUI();
+            modalContainer.style.display = 'flex';
+            gameBox.style.display = 'flex';
+            branchBox.style.display = 'none';
             
-            startBtn.innerText = "카메라 및 AI 모델 로딩 중...";
+            startBtn.innerText = "AI 로딩 중...";
             startBtn.disabled = true;
 
             try {
                 // 웹캠 스트림 가져오기
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
-                videoElement.srcObject = stream;
+                webcamFeed.srcObject = stream;
                 
-                await new Promise((resolve) => { videoElement.onloadeddata = () => { resolve(); }; });
+                await new Promise((resolve) => { webcamFeed.onloadeddata = () => { resolve(); }; });
+                isWebcamReady = true;
 
-                // BlazeFace AI 얼굴 인식 모델 로드 (최초 1회만)
                 if (!aiModel) { aiModel = await blazeface.load(); }
                 
-                startBtn.innerText = "게임 시작 (머리 인식 준비완료)";
+                startBtn.innerText = "게임 시작 (머리 인식 대기)";
                 startBtn.disabled = false;
                 
-                // 트래킹 루프 시작
-                if(!isTracking) { isTracking = true; trackFace(); }
+                trackFaceLoop(); // 트래킹 시작
             } catch (err) {
                 console.error("카메라 에러:", err);
-                startBtn.innerText = "웹캠 권한이 필요합니다!";
-                document.getElementById('overlaySub').innerText = "브라우저 설정에서 카메라 권한을 허용해주세요.";
+                startBtn.innerText = "카메라 권한 필요!";
+                document.getElementById('overlaySub').innerText = "Pages 주소(HTTPS)로 접속하여 권한을 허용해주세요.";
             }
         }
 
-        // 게임 닫기: 스트림 중지 및 초기화
-        function closeGame() {
-            modal.style.display = 'none';
-            stopGameLogic();
-            isTracking = false;
+        async function trackFaceLoop() {
+            if (!isWebcamReady || modalContainer.style.display === 'none') return;
             
-            // 카메라 리소스 해제
-            if (videoElement.srcObject) {
-                videoElement.srcObject.getTracks().forEach(track => track.stop());
-                videoElement.srcObject = null;
-            }
-        }
-
-        // AI 얼굴 추적 루프 함수
-        async function trackFace() {
-            if (!isTracking) return;
-            
-            if (aiModel && videoElement.readyState === 4) {
-                const predictions = await aiModel.estimateFaces(videoElement, false);
-                
-                // 얼굴이 인식되고, 게임 플레이 중일 때만 바구니 이동
+            if (aiModel && webcamFeed.readyState === 4) {
+                const predictions = await aiModel.estimateFaces(webcamFeed, false);
                 if (predictions.length > 0 && isPlaying) {
                     const start = predictions[0].topLeft;
                     const end = predictions[0].bottomRight;
-                    const faceCenterX = (start[0] + end[0]) / 2;
-                    
-                    const videoWidth = videoElement.videoWidth;
-                    const canvasWidth = canvas.clientWidth;
-                    
-                    // 거울 모드(좌우 반전)를 고려하여 X 좌표 맵핑
-                    let mappedX = canvasWidth - (faceCenterX / videoWidth) * canvasWidth;
-                    
-                    // 화면 밖 이탈 방지
-                    if (mappedX < 45) mappedX = 45;
-                    if (mappedX > canvasWidth - 45) mappedX = canvasWidth - 45;
-                    
-                    // 바구니 위치 갱신
+                    const centerX = (start[0] + end[0]) / 2;
+                    const videoWidth = webcamFeed.videoWidth;
+                    const canvasWidth = document.getElementById('game-canvas-container').clientWidth;
+                    let mappedX = canvasWidth - (centerX / videoWidth) * canvasWidth;
+                    if (mappedX < 45) mappedX = 45; if (mappedX > canvasWidth - 45) mappedX = canvasWidth - 45;
                     basket.style.left = mappedX + 'px';
                 }
             }
-            requestAnimationFrame(trackFace); // 부드러운 60프레임 추적
-        }
-
-        function resetGameUI() {
-            stopGameLogic();
-            overlay.style.display = 'flex';
-            document.getElementById('overlayTitle').innerText = "카메라 앞의 머리를 움직여보세요!";
-            scoreVal.innerText = "0"; lifeVal.innerText = "❤️❤️❤️";
+            requestAnimationFrame(trackFaceLoop);
         }
 
         function startGame() {
-            overlay.style.display = 'none';
+            gameOverlay.style.display = 'none';
             score = 0; lives = 3; isPlaying = true;
-            fallingItems = []; scoreVal.innerText = score; lifeVal.innerText = "❤️❤️❤️"; itemSpeed = 4;
-
-            gameLoopInterval = setInterval(updateGame, 20);
-            itemSpawnInterval = setInterval(spawnItem, 800);
+            fallingItems = []; scoreVal.innerText = score; lifeVal.innerText = "❤️❤️❤️";
+            gameLoopInterval = setInterval(updateGameLoop, 20);
+            itemSpawnInterval = setInterval(spawnItemLogic, 800);
         }
 
         function stopGameLogic() {
@@ -333,74 +399,47 @@
             fallingItems = [];
         }
 
-        function spawnItem() {
+        function spawnItemLogic() {
             if(!isPlaying) return;
-            // 탐구 컨셉에 맞는 아이템 세팅
-            const itemsConfig = [
-                { text: '🧬', type: 'good' }, { text: '⚛️', type: 'good' }, { text: '💡', type: 'good' },
-                { text: '🐛', type: 'bad' }, { text: '☢️', type: 'bad' }
-            ];
-            const chosen = itemsConfig[Math.floor(Math.random() * itemsConfig.length)];
-
+            const items = [{ text: '🧬', type: 'good' }, { text: '⚛️', type: 'good' }, { text: '💡', type: 'good' }, { text: '🐛', type: 'bad' }, { text: '☢️', type: 'bad' }];
+            const chosen = items[Math.floor(Math.random() * items.length)];
             const itemEl = document.createElement('div');
-            itemEl.className = 'falling-item';
-            itemEl.innerText = chosen.text;
-            
-            const randomX = Math.random() * (canvas.clientWidth - 40) + 20;
+            itemEl.className = 'falling-item'; itemEl.innerText = chosen.text;
+            const randomX = Math.random() * (document.getElementById('game-canvas-container').clientWidth - 40) + 20;
             itemEl.style.left = randomX + 'px'; itemEl.style.top = '-30px';
-            canvas.appendChild(itemEl);
-
-            fallingItems.push({ element: itemEl, x: randomX, y: -30, type: chosen.type });
+            document.getElementById('game-canvas-container').appendChild(itemEl);
+            fallingItems.push({ element: itemEl, y: -30, type: chosen.type });
         }
 
-        function updateGame() {
+        function updateGameLoop() {
             const basketRect = basket.getBoundingClientRect();
             itemSpeed = 4 + Math.floor(score / 50) * 1.5; 
-
             for (let i = fallingItems.length - 1; i >= 0; i--) {
                 let item = fallingItems[i];
-                item.y += itemSpeed;
-                item.element.style.top = item.y + 'px';
-
+                item.y += itemSpeed; item.element.style.top = item.y + 'px';
                 const itemRect = item.element.getBoundingClientRect();
-
-                // 충돌 감지 로직
-                if (
-                    itemRect.bottom >= basketRect.top && itemRect.top <= basketRect.bottom &&
-                    itemRect.right >= basketRect.left && itemRect.left <= basketRect.right
-                ) {
-                    if (item.type === 'good') {
-                        score += 10; scoreVal.innerText = score;
-                    } else {
-                        lives--; updateLivesUI();
-                    }
-                    item.element.remove();
-                    fallingItems.splice(i, 1);
+                if (itemRect.bottom >= basketRect.top && itemRect.top <= basketRect.bottom && itemRect.right >= basketRect.left && itemRect.left <= basketRect.right) {
+                    if (item.type === 'good') { score += 10; scoreVal.innerText = score; } else { lives--; updateLivesUI(); }
+                    item.element.remove(); fallingItems.splice(i, 1);
                     continue;
                 }
-                
-                // 화면 밖으로 나갔을 때
-                if (item.y > canvas.clientHeight) {
-                    item.element.remove();
-                    fallingItems.splice(i, 1);
-                }
+                if (item.y > 480) { item.element.remove(); fallingItems.splice(i, 1); }
             }
-            if (lives <= 0) gameOver();
+            if (lives <= 0) gameOverLogic();
         }
 
         function updateLivesUI() {
-            let heartStr = "";
-            for(let i=0; i<lives; i++) heartStr += "❤️";
-            if(heartStr === "") heartStr = "❌ 게임오버";
-            lifeVal.innerText = heartStr;
+            let s = ""; for(let i=0; i<lives; i++) s += "❤️";
+            if(s === "") s = "❌ 종료";
+            lifeVal.innerText = s;
         }
 
-        function gameOver() {
+        function gameOverLogic() {
             stopGameLogic();
-            overlay.style.display = 'flex';
+            gameOverlay.style.display = 'flex';
             document.getElementById('overlayTitle').innerText = "🚨 실험 종료";
-            document.getElementById('overlaySub').innerText = `수집한 탐구 지식 점수: ${score}점`;
-            startBtn.innerText = "다시 도전하기";
+            document.getElementById('overlaySub').innerText = `최종 점수: ${score}점`;
+            startBtn.innerText = "다시 도전";
         }
     </script>
 </body>
