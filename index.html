@@ -20,24 +20,24 @@
             background-color: #f8f9fa;
             color: #333333;
             scroll-behavior: smooth;
-            overflow-x: hidden; /* 가로 스크롤 방지 */
+            overflow-x: hidden;
         }
 
-        /* [2. 상단 진행률 바 (Scroll Progress Bar)] */
+        /* [2. 상단 진행률 바] */
         #progress-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px; /* 바 두께 */
+            height: 4px;
             background: transparent;
-            z-index: 9999; /* 최상단 고정 */
+            z-index: 9999;
         }
 
         #progress-bar {
             height: 100%;
-            background: #3b82f6; /* 파란색 계열 포인트 컬러 */
-            width: 0%; /* 초기 너비 */
+            background: #3b82f6;
+            width: 0%;
             transition: width 0.1s ease;
         }
 
@@ -51,6 +51,7 @@
             background-color: #ffffff;
             text-align: center;
             background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            position: relative;
         }
 
         .hero h1 {
@@ -61,17 +62,15 @@
             margin-bottom: 0.5rem;
         }
 
-        /* 타이핑 효과가 적용될 부제목 스타일 */
         .hero h2 {
             font-size: 1.5rem;
             font-weight: 300;
             color: #64748b; 
             letter-spacing: 2px;
             margin-bottom: 3rem;
-            min-height: 1.8rem; /* 타이핑 시 높이 고정 */
+            min-height: 1.8rem;
         }
 
-        /* 타이핑 커서 깜빡임 효과 */
         .cursor {
             display: inline-block;
             width: 2px;
@@ -90,6 +89,27 @@
             font-weight: 400;
             color: #94a3b8; 
             margin-top: 5rem;
+        }
+
+        /* ⭐️ [추가] Just For Fun 버튼 스타일 */
+        .fun-btn {
+            margin-top: 2rem;
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #3b82f6;
+            background-color: transparent;
+            border: 1px solid #3b82f6;
+            border-radius: 30px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .fun-btn:hover {
+            background-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
         /* [4. 카드 섹션] */
@@ -113,7 +133,7 @@
             background-color: #ffffff;
             flex: 1; 
             min-width: 280px; 
-            min-height: 450px; /* 세로로 더 길게 설정 */
+            min-height: 450px; 
             padding: 5rem 2.5rem;
             border-radius: 16px; 
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
@@ -127,8 +147,7 @@
         }
 
         .card:hover {
-            transform: translateY(-20px); /* 호버 시 위로 더 많이 상승 */
-            /* 더 깊고 넓은 그림자 효과 (강조) */
+            transform: translateY(-20px); 
             box-shadow: 0 40px 70px -15px rgba(30, 58, 138, 0.25); 
         }
 
@@ -147,7 +166,6 @@
             font-size: 1.05rem;
         }
 
-        /* 스크롤 시 카드가 나타나게 하는 클래스 */
         .card.visible {
             opacity: 1;
             transform: translateY(0);
@@ -157,12 +175,123 @@
         .email-footer {
             margin-top: 6rem;
             text-align: right;
-            font-size: 0.65rem; /* 이름보다 작게 */
+            font-size: 0.65rem; 
             color: #94a3b8; 
             font-weight: 400;
             letter-spacing: 1px;
         }
 
+        /* 🎮 [추가] 미니게임 모달 팝업 윈도우 CSS */
+        .game-modal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-box {
+            background-color: #ffffff;
+            width: 500px;
+            height: 650px;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .close-game {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+        }
+
+        .game-title {
+            color: #1e3a8a;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .game-score-board {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 10px;
+        }
+
+        /* 게임이 실제로 플레이되는 캔버스 맵 영역 */
+        #game-canvas-container {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(to bottom, #f0f4ff, #ffffff);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            cursor: none; /* 게임 영역 안에서는 실제 마우스 포인터 숨김 */
+        }
+
+        /* 바구니 오브젝트 */
+        #basket {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            width: 80px; height: 25px;
+            background-color: #3b82f6;
+            border-radius: 20px;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+
+        /* 떨어지는 점수/폭탄 아이템들 */
+        .falling-item {
+            position: absolute;
+            font-size: 1.6rem;
+            transform: translateX(-50%);
+            user-select: none;
+        }
+
+        /* 게임 시작 & 오버 안내판 화면 */
+        .game-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            z-index: 10;
+        }
+
+        .start-btn {
+            margin-top: 15px;
+            padding: 10px 25px;
+            background-color: #1e3a8a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
@@ -175,30 +304,52 @@
         <h1>ScienceArchive</h1>
         <h2 id="typing-text"></h2>
         <span class="name">임서연</span>
+        <button class="fun-btn" onclick="openGame()">just for fun 🎮</button>
     </header>
 
     <section class="content-section">
         <div class="card-container">
             <div class="card">
                 <h3>branch</h3>
-                <p>교과 심화 탐구 내용</p>
+                <p>교과 경계를 넘어 깊이 파고든 주제별 심화 탐구의 흐름을 기록합니다.</p>
             </div>
 
             <div class="card">
                 <h3>brainstorming</h3>
-                <p>잡생각들의 모음</p>
+                <p>가설 설정부터 한계 분석까지, 창의적 문제 해결을 위한 아이디어의 원천입니다.</p>
             </div>
 
             <div class="card">
                 <h3>about me</h3>
-                <p>나의 이야기</p>
+                <p>HAFS에서의 학업적 성장 과정과 탐구자로서의 비전을 소개합니다.</p>
             </div>
         </div>
 
         <div class="email-footer">
-            ✉️022261@hafs.hs.kr
+            ✉️ 022261@hafs.hs.kr
         </div>
     </section>
+
+    <div class="game-modal" id="gameModal">
+        <div class="game-box">
+            <span class="close-game" onclick="closeGame()">&times;</span>
+            <div class="game-title">학점 사수하기 v1.0</div>
+            
+            <div class="game-score-board">
+                <div>Score: <b id="scoreVal">0</b></div>
+                <div>Life: <b id="lifeVal">❤️❤️❤️</b></div>
+            </div>
+
+            <div id="game-canvas-container">
+                <div class="game-overlay" id="gameOverlay">
+                    <h3 id="overlayTitle" style="color:#1e3a8a; font-size:1.4rem;">F를 피해 A+을 받으세요!</h3>
+                    <p id="overlaySub" style="font-size:0.85rem; color:#64748b; margin-top:5px;">마우스를 좌우로 움직여 조작합니다.</p>
+                    <button class="start-btn" id="startBtn" onclick="startGame()">게임 시작</button>
+                </div>
+                <div id="basket">임서연</div>
+            </div>
+        </div>
+    </div>
 
     <script>
         /* 1. 상단 진행률 바 기능 */
@@ -216,26 +367,21 @@
 
         function type() {
             if (index < message.length) {
-                // 한 글자씩 추가
                 typingTarget.innerHTML = message.substring(0, index + 1) + '<span class="cursor"></span>';
                 index++;
-                setTimeout(type, 120); // 타이핑 속도 조정 (120ms)
+                setTimeout(type, 120);
             } else {
-                // 타이핑 완료 후 커서만 남김
                 typingTarget.innerHTML = message + '<span class="cursor"></span>';
             }
         }
 
-        // 페이지 로드 후 0.5초 뒤에 타이핑 시작
         window.onload = () => {
             setTimeout(type, 500);
         };
 
-        /* 3. 카드 스크롤 애니메이션 (Intersection Observer) */
+        /* 3. 카드 스크롤 애니메이션 */
         const cards = document.querySelectorAll('.card');
-        const observerOptions = {
-            threshold: 0.1
-        };
+        const observerOptions = { threshold: 0.1 };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -247,10 +393,163 @@
         }, observerOptions);
 
         cards.forEach((card, i) => {
-            card.style.transitionDelay = `${i * 0.2}s`; // 카드별로 순차적 등장
+            card.style.transitionDelay = `${i * 0.2}s`;
             observer.observe(card);
         });
-    </script>
 
+        /* 🎮 4. [추가] 미니 게임 자바스크립트 엔진 원리 소스 */
+        const modal = document.getElementById('gameModal');
+        const canvas = document.getElementById('game-canvas-container');
+        const basket = document.getElementById('basket');
+        const overlay = document.getElementById('gameOverlay');
+        const scoreVal = document.getElementById('scoreVal');
+        const lifeVal = document.getElementById('lifeVal');
+        const startBtn = document.getElementById('startBtn');
+        const overlayTitle = document.getElementById('overlayTitle');
+        const overlaySub = document.getElementById('overlaySub');
+
+        let score = 0;
+        let lives = 3;
+        let isPlaying = false;
+        let gameLoopInterval;
+        let itemSpawnInterval;
+        let fallingItems = [];
+        let itemSpeed = 4; // 아이템 하강 속도 기본값
+
+        // 팝업 열기/닫기
+        function openGame() { modal.style.display = 'flex'; resetGameUI(); }
+        function closeGame() { modal.style.display = 'none'; stopGame(); }
+
+        // 마우스 무브 감지 -> 바구니 좌우 조작
+        canvas.addEventListener('mousemove', (e) => {
+            if(!isPlaying) return;
+            const rect = canvas.getBoundingClientRect();
+            let relativeX = e.clientX - rect.left;
+            // 바구니가 화면 밖으로 이탈 방지 경계 제한
+            if (relativeX < 40) relativeX = 40;
+            if (relativeX > rect.width - 40) relativeX = rect.width - 40;
+            basket.style.left = relativeX + 'px';
+        });
+
+        function resetGameUI() {
+            stopGame();
+            overlay.style.display = 'flex';
+            overlayTitle.innerText = "F를 피해 A+을 받으세요!";
+            overlaySub.innerText = "마우스를 좌우로 움직여 조작합니다.";
+            startBtn.innerText = "게임 시작";
+            scoreVal.innerText = "0";
+            lifeVal.innerText = "❤️❤️❤️";
+        }
+
+        function startGame() {
+            overlay.style.display = 'none';
+            score = 0; lives = 3; isPlaying = true;
+            fallingItems = [];
+            scoreVal.innerText = score;
+            lifeVal.innerText = "❤️❤️❤️";
+            itemSpeed = 4;
+
+            // 기존 구동 루프 초기화 후 세팅
+            gameLoopInterval = setInterval(updateGame, 20);
+            itemSpawnInterval = setInterval(spawnItem, 800);
+        }
+
+        function stopGame() {
+            isPlaying = false;
+            clearInterval(gameLoopInterval);
+            clearInterval(itemSpawnInterval);
+            // 남아있는 오브젝트 전부 소거
+            fallingItems.forEach(item => item.element.remove());
+            fallingItems = [];
+        }
+
+        function spawnItem() {
+            if(!isPlaying) return;
+            
+            // 좋은 아이템 리스트와 나쁜 해로운 아이템 분배 배정률 설정
+            const itemsConfig = [
+                { text: 'A+', type: 'good' }, { text: '📚', type: 'good' }, { text: '💡', type: 'good' },
+                { text: 'F', type: 'bad' }, { text: '📱', type: 'bad' }
+            ];
+            const chosen = itemsConfig[Math.floor(Math.random() * itemsConfig.length)];
+
+            const itemEl = document.createElement('div');
+            itemEl.className = 'falling-item';
+            itemEl.innerText = chosen.text;
+            
+            const randomX = Math.random() * (canvas.clientWidth - 40) + 20;
+            itemEl.style.left = randomX + 'px';
+            itemEl.style.top = '-30px';
+            canvas.appendChild(itemEl);
+
+            fallingItems.push({
+                element: itemEl,
+                x: randomX,
+                y: -30,
+                type: chosen.type
+            });
+        }
+
+        function updateGame() {
+            const basketRect = basket.getBoundingClientRect();
+            const canvasRect = canvas.getBoundingClientRect();
+
+            // 스코어 점수가 오를 때마다 물리 하강 메커니즘 연산 가속화 조정
+            itemSpeed = 4 + Math.floor(score / 50) * 1; 
+
+            for (let i = fallingItems.length - 1; i >= 0; i--) {
+                let item = fallingItems[i];
+                item.y += itemSpeed;
+                item.element.style.top = item.y + 'px';
+
+                const itemRect = item.element.getBoundingClientRect();
+
+                // 1. 바구니와 닿아 충돌했는지 검사
+                if (
+                    itemRect.bottom >= basketRect.top &&
+                    itemRect.top <= basketRect.bottom &&
+                    itemRect.right >= basketRect.left &&
+                    itemRect.left <= basketRect.right
+                ) {
+                    if (item.type === 'good') {
+                        score += 10;
+                        scoreVal.innerText = score;
+                    } else {
+                        // 패널티 발생 시 라이프 디덕션 하락 감소 처리
+                        lives--;
+                        updateLivesUI();
+                    }
+                    item.element.remove();
+                    fallingItems.splice(i, 1);
+                    continue;
+                }
+
+                // 2. 바닥 땅에 떨어져 화면에서 완전히 나간 조건 감지 처리
+                if (item.y > canvas.clientHeight) {
+                    item.element.remove();
+                    fallingItems.splice(i, 1);
+                }
+            }
+
+            if (lives <= 0) {
+                gameOver();
+            }
+        }
+
+        function updateLivesUI() {
+            let heartStr = "";
+            for(let i=0; i<lives; i++) heartStr += "❤️";
+            if(heartStr === "") heartStr = "❌ 게임오버";
+            lifeVal.innerText = heartStr;
+        }
+
+        function gameOver() {
+            stopGame();
+            overlay.style.display = 'flex';
+            overlayTitle.innerText = "🚨 Game Over";
+            overlaySub.innerText = `최종 획득 스코어 점수: ${score}점`;
+            startBtn.innerText = "다시 도전하기";
+        }
+    </script>
 </body>
 </html>
