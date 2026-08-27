@@ -1,4 +1,4 @@
-<!DOCTYPE html> #,설명창 기능 엡데이트 하기
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +42,7 @@
         /* [5. 이메일 푸터] */
         .email-footer { margin-top: 6rem; text-align: right; font-size: 0.65rem; color: #94a3b8; font-weight: 400; letter-spacing: 1px; }
 
-        /* 🎮 [about me 게임] 및 🌳 [branch 탐색기] 전용 모달 (통합용) */
+        /* 🎮 [about me 게임] 및 🌳 [branch 탐색기] 전용 모달 */
         .game-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 10000; justify-content: center; align-items: center; }
         
         /* 통합용 박스 디자인 */
@@ -63,12 +63,10 @@
         /* 🌳 Branch 탐색기 전용 CSS (branch) */
         #branch-canvas {
             width: 100%; height: 500px;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%); /* 흰색/밝은하늘 그라데이션 */
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
             border-radius: 12px; position: relative; overflow: hidden;
             border: 1px solid #e2e8f0; display: flex; justify-content: center; align-items: center;
         }
-
-        /* 나뭇가지형 노드 스타일 */
         .tree-node {
             position: absolute; width: 100px; height: 100px;
             border-radius: 50%; color: #ffffff; display: flex;
@@ -76,18 +74,13 @@
             font-weight: 400; cursor: pointer; text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform: scale(0); /* 처음엔 안보임 */
+            transform: scale(0);
             z-index: 10; padding: 15px; word-break: keep-all;
         }
-
         .tree-node:hover { transform: scale(1.1) !important; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-
-        /* 레벨별 색상 (파란색/초록색 계열) */
-        .level-1 { background-color: #1e3a8a; } /* 큰 테마 */
-        .level-2 { background-color: #3b82f6; font-size: 0.8rem; } /* 중간 주제 */
-        .level-3 { background-color: #10b981; font-size: 0.7rem; } /* 세부 내역 */
-
-        /* 뒤로가기 버튼 */
+        .level-1 { background-color: #1e3a8a; }
+        .level-2 { background-color: #3b82f6; font-size: 0.8rem; }
+        .level-3 { background-color: #10b981; font-size: 0.7rem; }
         #branch-back-btn {
             position: absolute; bottom: 15px; left: 15px; padding: 8px 15px;
             background-color: transparent; border: 1px solid #94a3b8; color: #94a3b8;
@@ -95,7 +88,6 @@
             transition: all 0.3s;
         }
         #branch-back-btn:hover { background-color: #f1f5f9; color: #475569; }
-
     </style>
 </head>
 <body>
@@ -125,13 +117,13 @@
                 <p>HAFS에서 살아남기 <br><br><b>(Click to Play 🎮)</b></p>
             </div>
         </div>
-
         <div class="email-footer">022261@hafs.hs.kr</div>
     </section>
 
+    <!-- 모달 컨테이너 (중복 코드 제거됨) -->
     <div class="game-modal" id="modalContainer">
         
-    <div class="modal-box" id="gameBox">
+        <div class="modal-box" id="gameBox">
             <span class="close-game" onclick="closeModal()">&times;</span>
             <div class="modal-title">AI 모션인식: 지식 탐구 시뮬레이션</div>
             <div id="game-score-board">
@@ -141,33 +133,17 @@
             <div id="game-canvas-container">
                 <video id="webcam-feed" autoplay playsinline></video>
                 
+                <!-- 게임 설명창 -->
                 <div class="game-overlay" id="instructionOverlay" style="z-index: 12; padding: 30px;">
                     <h2 style="color: #1e3a8a; margin-bottom: 15px;">🎮 게임 설명서</h2>
-                    
                     <p style="font-size: 0.95rem; color: #334155; line-height: 1.6; margin-bottom: 25px; white-space: pre-wrap;">
 1. 카메라 권한을 허용해주세요.
 2. 머리를 움직이면 이에 맞춰서 판이 움직입니다.
 3. 판이 🧬, ⚛️, 💡를 만나면 점수가 올라가고, 🐛, ☢️를 만나면 목숨이 줄어듭니다.
                     </p>
-                    
                     <button class="start-btn" onclick="closeInstruction()" style="background-color: #10b981;">확인 완료!</button>
                 </div>
 
-                <div class="game-overlay" id="gameOverlay">
-                    <h3 id="overlayTitle" style="color:#1e3a8a; font-size:1.3rem;">카메라 앞의 머리를 움직여보세요!</h3>
-                    <p id="overlaySub" style="font-size:0.85rem; color:#64748b; margin-top:8px; line-height:1.5;">🧬, ⚛️, 💡은 모으고, 🐛, ☢️는 피하세요.</p>
-                    <button class="start-btn" id="startBtn" onclick="startGame()">카메라 및 AI 로딩 중...</button>
-                </div>
-                <div id="basket">임서연</div>
-            </div>
-        </div>            <span class="close-game" onclick="closeModal()">&times;</span>
-            <div class="modal-title">AI 모션인식: 지식 탐구 시뮬레이션</div>
-            <div id="game-score-board">
-                <div>탐구 점수: <b id="scoreVal" style="color:#3b82f6;">0</b></div>
-                <div>멘탈: <b id="lifeVal">❤️❤️❤️</b></div>
-            </div>
-            <div id="game-canvas-container">
-                <video id="webcam-feed" autoplay playsinline></video>
                 <div class="game-overlay" id="gameOverlay">
                     <h3 id="overlayTitle" style="color:#1e3a8a; font-size:1.3rem;">카메라 앞의 머리를 움직여보세요!</h3>
                     <p id="overlaySub" style="font-size:0.85rem; color:#64748b; margin-top:8px; line-height:1.5;">🧬, ⚛️, 💡은 모으고, 🐛, ☢️는 피하세요.</p>
@@ -221,7 +197,6 @@
         const branchCanvas = document.getElementById('branch-canvas');
         const branchBackBtn = document.getElementById('branch-back-btn');
 
-        // 나뭇가지 구조 데이터 (서연님의 실제 탐구 내용에 맞게 수정하세요!)
         const branchData = {
             id: 'root',
             label: '탐구 아카이브',
@@ -246,65 +221,54 @@
             ]
         };
 
-        let currentBranchLevel = branchData; // 현재 화면에 보이는 데이터 단계
-        let branchHistory = []; // 뒤로가기를 위한 히스토리 저장소
+        let currentBranchLevel = branchData;
+        let branchHistory = [];
 
-        // 모달 열기/닫기 통합 함수
         function closeModal() {
             modalContainer.style.display = 'none';
             gameBox.style.display = 'none';
             branchBox.style.display = 'none';
-            stopGameLogic(); // 게임 중이었다면 중지
+            stopGameLogic();
         }
 
-        // branch 탐색기 열기
         function openBranchExplorer() {
             modalContainer.style.display = 'flex';
             branchBox.style.display = 'flex';
             gameBox.style.display = 'none';
-            currentBranchLevel = branchData; // 루트부터 시작
+            currentBranchLevel = branchData;
             branchHistory = [];
             renderBranchNodes(currentBranchLevel.children);
             branchBackBtn.style.display = 'none';
         }
 
-        // 나뭇가지 노드 생성 및 모핑 애니메이션 적용
         function renderBranchNodes(nodes) {
-            // 기존 노드 소거 (뒤로가기 버튼 제외)
             Array.from(branchCanvas.querySelectorAll('.tree-node')).forEach(node => node.remove());
-
             const canvasWidth = branchCanvas.clientWidth;
             const canvasHeight = branchCanvas.clientHeight;
             const centerX = canvasWidth / 2;
             const centerY = canvasHeight / 2;
-            const radius = 150; // 노드들이 퍼질 반지름
+            const radius = 150;
 
             nodes.forEach((node, i) => {
                 const nodeEl = document.createElement('div');
                 nodeEl.className = `tree-node level-${node.type === 'theme' ? '1' : node.type === 'subject' ? '2' : '3'}`;
                 nodeEl.innerText = node.label;
                 
-                // 처음엔 중앙에서 시작
                 nodeEl.style.left = centerX - 50 + 'px';
                 nodeEl.style.top = centerY - 50 + 'px';
                 nodeEl.style.transform = 'scale(0)';
                 
-                // 나중에 나뭇가지처럼 퍼질 위치 계산
                 const angle = (i / nodes.length) * (2 * Math.PI) - (Math.PI / 2);
                 const targetX = centerX + radius * Math.cos(angle);
                 const targetY = centerY + radius * Math.sin(angle);
 
-                // 클릭 시 모핑 애니메이션과 깊이 이동
                 nodeEl.onclick = (e) => {
                     e.stopPropagation();
                     if (node.children && node.children.length > 0) {
                         morphToNode(nodeEl, node);
                     }
                 };
-
                 branchCanvas.appendChild(nodeEl);
-
-                // 약간의 시간차를 두고 중앙에서 퍼져나가는 애니메이션 실행
                 setTimeout(() => {
                     nodeEl.style.transform = 'scale(1)';
                     nodeEl.style.left = targetX - 50 + 'px';
@@ -313,35 +277,29 @@
             });
         }
 
-        // 특정 노드로 화면 전체가 모핑되는 애니메이션
         function morphToNode(clickedEl, nodeData) {
-            // 클릭된 노드를 중앙으로 이동시키며 화면 전체로 키움
             const canvasWidth = branchCanvas.clientWidth;
             const canvasHeight = branchCanvas.clientHeight;
-
-            clickedEl.style.zIndex = '20'; // 맨 위로
+            clickedEl.style.zIndex = '20';
             clickedEl.style.left = (canvasWidth / 2) - 50 + 'px';
             clickedEl.style.top = (canvasHeight / 2) - 50 + 'px';
             clickedEl.style.transform = 'scale(1.5)';
-            clickedEl.style.opacity = '0'; // 천천히 투명해지며 사라짐
+            clickedEl.style.opacity = '0';
 
-            // 나머지 노드들은 사라짐
             Array.from(branchCanvas.querySelectorAll('.tree-node')).forEach(el => {
                 if (el !== clickedEl) {
                     el.style.transform = 'scale(0)';
                 }
             });
 
-            // 모핑 애니메이션 후 세부 노드 렌더링
             setTimeout(() => {
-                branchHistory.push(currentBranchLevel); // 히스토리에 저장
-                currentBranchLevel = nodeData; // 데이터 레벨 업데이트
+                branchHistory.push(currentBranchLevel);
+                currentBranchLevel = nodeData;
                 renderBranchNodes(currentBranchLevel.children);
-                branchBackBtn.style.display = 'block'; // 뒤로가기 버튼 활성화
+                branchBackBtn.style.display = 'block';
             }, 600);
         }
 
-        // branch 탐색기 뒤로가기
         function goBackBranch() {
             if (branchHistory.length > 0) {
                 currentBranchLevel = branchHistory.pop();
@@ -350,8 +308,7 @@
             }
         }
 
-
-        /* 🎮 2. [about me 게임] 전용 스크립트 (기존 코드 통합) */
+        /* 🎮 2. [about me 게임] 전용 스크립트 */
         const webcamFeed = document.getElementById('webcam-feed');
         const gameOverlay = document.getElementById('gameOverlay');
         const startBtn = document.getElementById('startBtn');
@@ -363,17 +320,25 @@
         let gameLoopInterval; let itemSpawnInterval;
         let fallingItems = []; let itemSpeed = 4;
         let isWebcamReady = false;
+        let score = 0; let lives = 3;
+
+        // ★ 추가된 설명창 닫기 함수 ★
+        function closeInstruction() {
+            document.getElementById('instructionOverlay').style.display = 'none';
+        }
 
         async function openGame() {
             modalContainer.style.display = 'flex';
             gameBox.style.display = 'flex';
             branchBox.style.display = 'none';
+            // 설명창 다시 보이게 리셋
+            document.getElementById('instructionOverlay').style.display = 'flex';
+            gameOverlay.style.display = 'flex';
             
             startBtn.innerText = "AI 로딩 중...";
             startBtn.disabled = true;
 
             try {
-                // 웹캠 스트림 가져오기
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
                 webcamFeed.srcObject = stream;
                 
@@ -385,7 +350,7 @@
                 startBtn.innerText = "게임 시작 (머리 인식 대기)";
                 startBtn.disabled = false;
                 
-                trackFaceLoop(); // 트래킹 시작
+                trackFaceLoop(); 
             } catch (err) {
                 console.error("카메라 에러:", err);
                 startBtn.innerText = "카메라 권한 필요!";
