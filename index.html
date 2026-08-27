@@ -147,6 +147,14 @@
                 <div class="game-overlay" id="gameOverlay">
                     <h3 id="overlayTitle" style="color:#1e3a8a; font-size:1.3rem;">카메라 앞의 머리를 움직여보세요!</h3>
                     <p id="overlaySub" style="font-size:0.85rem; color:#64748b; margin-top:8px; line-height:1.5;">🧬, ⚛️, 💡은 모으고, 🐛, ☢️는 피하세요.</p>
+                    
+                    <!-- 🏆 Top 3 리더보드 영역 -->
+                    <div id="leaderboard" style="display:none; margin-top: 15px; text-align: left; background: #f1f5f9; padding: 15px; border-radius: 8px; width: 80%;">
+                        <h4 style="color:#1e3a8a; text-align:center; margin-bottom: 10px; font-size: 1rem;">🏆 Top 3 스코어</h4>
+                        <ul id="leaderboardList" style="list-style: none; padding: 0; font-size: 0.95rem; color: #334155; text-align: center;">
+                        </ul>
+                    </div>
+
                     <button class="start-btn" id="startBtn" onclick="startGame()">카메라 및 AI 로딩 중...</button>
                 </div>
                 <div id="basket">임서연</div>
@@ -322,7 +330,7 @@
         let isWebcamReady = false;
         let score = 0; let lives = 3;
 
-        // ★ 추가된 설명창 닫기 함수 ★
+        // 게임 설명창 닫기 함수
         function closeInstruction() {
             document.getElementById('instructionOverlay').style.display = 'none';
         }
@@ -334,6 +342,7 @@
             // 설명창 다시 보이게 리셋
             document.getElementById('instructionOverlay').style.display = 'flex';
             gameOverlay.style.display = 'flex';
+            document.getElementById('leaderboard').style.display = 'none'; // 시작 전엔 리더보드 숨김
             
             startBtn.innerText = "AI 로딩 중...";
             startBtn.disabled = true;
@@ -379,6 +388,7 @@
 
         function startGame() {
             gameOverlay.style.display = 'none';
+            document.getElementById('leaderboard').style.display = 'none'; // 게임 시작 시 리더보드 숨기기
             score = 0; lives = 3; isPlaying = true;
             fallingItems = []; scoreVal.innerText = score; lifeVal.innerText = "❤️❤️❤️";
             gameLoopInterval = setInterval(updateGameLoop, 20);
@@ -427,11 +437,44 @@
             lifeVal.innerText = s;
         }
 
+        // 🏆 Top 3 점수 저장 및 렌더링 함수
+        function saveAndDisplayTopScores(newScore) {
+            let scores = JSON.parse(localStorage.getItem('hafsGameScores')) || [];
+            
+            if (newScore > 0) {
+                scores.push(newScore);
+            }
+            
+            scores.sort((a, b) => b - a);
+            scores = scores.slice(0, 3);
+            
+            localStorage.setItem('hafsGameScores', JSON.stringify(scores));
+            
+            const leaderboardDiv = document.getElementById('leaderboard');
+            const leaderboardList = document.getElementById('leaderboardList');
+            leaderboardList.innerHTML = '';
+            
+            if (scores.length === 0) {
+                leaderboardList.innerHTML = '<li>기록이 없습니다.</li>';
+            } else {
+                const medals = ['🥇', '🥈', '🥉'];
+                scores.forEach((s, index) => {
+                    leaderboardList.innerHTML += `<li style="margin-bottom: 5px;">${medals[index]} ${s}점</li>`;
+                });
+            }
+            
+            leaderboardDiv.style.display = 'block';
+        }
+
         function gameOverLogic() {
             stopGameLogic();
             gameOverlay.style.display = 'flex';
             document.getElementById('overlayTitle').innerText = "🚨 실험 종료";
             document.getElementById('overlaySub').innerText = `최종 점수: ${score}점`;
+            
+            // 게임 종료 시 리더보드 갱신 및 표시
+            saveAndDisplayTopScores(score);
+            
             startBtn.innerText = "다시 도전";
         }
     </script>
